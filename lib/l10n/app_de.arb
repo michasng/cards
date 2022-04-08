@@ -1,0 +1,19 @@
+{
+  "decks": "Decks",
+  "deck": "Deck",
+  "deckName": "Deck \"{name}\"",
+  "@deckName": {
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "template": "Schablone",
+  "templates": "Schablonen",
+  "templateCount": "{count, plural, zero{keine Schablonen}, one{1 Schablone}, other{{count} Schablonen}}",
+  "@templateCount": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "card": "Karte"
+}

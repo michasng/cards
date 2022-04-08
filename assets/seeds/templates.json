@@ -1,0 +1,32 @@
+[
+  {
+    "id": 0,
+    "template": "Jemand muss sein/ihr Glas leer trinken",
+    "isActive": true,
+    "color": {
+      "red": 200,
+      "green": 0,
+      "blue": 100
+    }
+  },
+  {
+    "id": 1,
+    "template": "Wasserfall",
+    "isActive": true,
+    "color": {
+      "red": 200,
+      "green": 250,
+      "blue": 100
+    }
+  },
+  {
+    "id": 2,
+    "template": "the frog jumps over the top",
+    "isActive": true,
+    "color": {
+      "red": 100,
+      "green": 150,
+      "blue": 200
+    }
+  }
+]
