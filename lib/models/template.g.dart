@@ -7,7 +7,7 @@ part of 'template.dart';
 // **************************************************************************
 
 Template _$TemplateFromJson(Map<String, dynamic> json) => Template(
-      json['id'] as int,
+      id: json['id'] as String?,
       template: json['template'] as String,
       isActive: json['isActive'] as bool,
       color: ColorData.fromJson(json['color'] as Map<String, dynamic>),

@@ -1,25 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'game.dart';
+part of 'app.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Game _$GameFromJson(Map<String, dynamic> json) => Game(
+App _$AppFromJson(Map<String, dynamic> json) => App(
       id: json['id'] as String?,
-      deck: Deck.fromJson(json['deck'] as Map<String, dynamic>),
-      gameCards: (json['gameCards'] as List<dynamic>)
-          .map((e) => GameCard.fromJson(e as Map<String, dynamic>))
+      decks: (json['decks'] as List<dynamic>)
+          .map((e) => Deck.fromJson(e as Map<String, dynamic>))
           .toList(),
       users: (json['users'] as List<dynamic>)
           .map((e) => User.fromJson(e as Map<String, dynamic>))
           .toList(),
+      game: json['game'] == null
+          ? null
+          : Game.fromJson(json['game'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$GameToJson(Game instance) => <String, dynamic>{
+Map<String, dynamic> _$AppToJson(App instance) => <String, dynamic>{
       'id': instance.id,
-      'deck': instance.deck,
-      'gameCards': instance.gameCards,
+      'decks': instance.decks,
       'users': instance.users,
+      'game': instance.game,
     };

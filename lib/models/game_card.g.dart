@@ -7,13 +7,13 @@ part of 'game_card.dart';
 // **************************************************************************
 
 GameCard _$GameCardFromJson(Map<String, dynamic> json) => GameCard(
-      json['id'] as int,
-      templateId: json['templateId'] as int,
+      id: json['id'] as String?,
+      template: Template.fromJson(json['template'] as Map<String, dynamic>),
       text: json['text'] as String,
     );
 
 Map<String, dynamic> _$GameCardToJson(GameCard instance) => <String, dynamic>{
       'id': instance.id,
-      'templateId': instance.templateId,
+      'template': instance.template,
       'text': instance.text,
     };

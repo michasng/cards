@@ -1,5 +1,5 @@
 import 'package:cards/models/template.dart';
-import 'package:cards/screens/deck/components/template_list_tile.dart';
+import 'package:cards/screens/deck/components/view/template_list_tile.dart';
 import 'package:flutter/material.dart';
 
 class TemplateList extends StatelessWidget {

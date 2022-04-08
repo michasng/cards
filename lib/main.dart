@@ -1,4 +1,5 @@
 import 'package:cards/app_router.gr.dart';
+import 'package:cards/services/app_service.dart';
 import 'package:cards/services/deck_service.dart';
 import 'package:cards/services/game_card_service.dart';
 import 'package:cards/services/game_service.dart';
@@ -18,10 +19,11 @@ Future<void> registerServices() async {
   final getIt = GetIt.I;
 
   getIt.registerSingleton(UserService());
-  getIt.registerSingletonAsync(TemplateService().seeded);
-  getIt.registerSingletonAsync(DeckService().seeded);
+  getIt.registerSingleton(TemplateService());
+  getIt.registerSingleton(DeckService());
   getIt.registerSingleton(GameCardService());
   getIt.registerSingleton(GameService());
+  getIt.registerSingletonAsync(AppService().seeded);
 
   await getIt.allReady();
 }

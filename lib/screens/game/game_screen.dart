@@ -2,12 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cards/app_router.gr.dart';
 import 'package:cards/models/game.dart';
 import 'package:cards/screens/game/components/game_page_view.dart';
+import 'package:cards/services/deck_service.dart';
 import 'package:cards/services/game_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 class GameScreen extends StatelessWidget {
-  final int? deckId;
+  final String? deckId;
 
   GameScreen({
     Key? key,
@@ -20,9 +21,10 @@ class GameScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     late Game game;
     if (deckId != null) {
+      final deck = GetIt.I<DeckService>().findOne(deckId!);
       game = GetIt.I<GameService>().startNewGame(
-        deckId: deckId!,
-        userIds: [],
+        deck: deck,
+        users: [],
       );
     }
 

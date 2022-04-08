@@ -19,10 +19,10 @@ class DeckListTile extends StatelessWidget {
     return ListTile(
       title: Text(deck.name),
       subtitle: Text(
-        locale.templateCount(deck.templateIds.length),
+        locale.templateCount(deck.templates.length),
       ),
       onTap: () {
-        AutoRouter.of(context).push(DeckRoute(deckId: deck.id));
+        AutoRouter.of(context).push(DeckRoute(deckId: deck.id!));
       },
     );
   }

@@ -7,8 +7,8 @@ part 'user.g.dart';
 class User extends Model {
   final String name;
 
-  const User(
-    int id, {
+  User({
+    String? id,
     required this.name,
   }) : super(id);
 

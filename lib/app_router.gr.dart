@@ -31,7 +31,7 @@ class AppRouter extends _i5.RootStackRouter {
     GameRoute.name: (routeData) {
       final queryParams = routeData.queryParams;
       final args = routeData.argsAs<GameRouteArgs>(
-          orElse: () => GameRouteArgs(deckId: queryParams.optInt('deckId')));
+          orElse: () => GameRouteArgs(deckId: queryParams.optString('deckId')));
       return _i5.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i2.GameScreen(key: args.key, deckId: args.deckId));
@@ -41,7 +41,7 @@ class AppRouter extends _i5.RootStackRouter {
       final queryParams = routeData.queryParams;
       final args = routeData.argsAs<DeckRouteArgs>(
           orElse: () => DeckRouteArgs(
-              deckId: pathParams.getInt('deckId'),
+              deckId: pathParams.getString('deckId'),
               isEditing: queryParams.getBool('isEditing', false)));
       return _i5.MaterialPageX<dynamic>(
           routeData: routeData,
@@ -51,8 +51,8 @@ class AppRouter extends _i5.RootStackRouter {
     TemplateRoute.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<TemplateRouteArgs>(
-          orElse: () =>
-              TemplateRouteArgs(templateId: pathParams.getInt('templateId')));
+          orElse: () => TemplateRouteArgs(
+              templateId: pathParams.getString('templateId')));
       return _i5.MaterialPageX<dynamic>(
           routeData: routeData,
           child:
@@ -84,7 +84,7 @@ class HomeRoute extends _i5.PageRouteInfo<void> {
 /// generated route for
 /// [_i2.GameScreen]
 class GameRoute extends _i5.PageRouteInfo<GameRouteArgs> {
-  GameRoute({_i6.Key? key, int? deckId})
+  GameRoute({_i6.Key? key, String? deckId})
       : super(GameRoute.name,
             path: '/game',
             args: GameRouteArgs(key: key, deckId: deckId),
@@ -98,7 +98,7 @@ class GameRouteArgs {
 
   final _i6.Key? key;
 
-  final int? deckId;
+  final String? deckId;
 
   @override
   String toString() {
@@ -109,7 +109,7 @@ class GameRouteArgs {
 /// generated route for
 /// [_i3.DeckScreen]
 class DeckRoute extends _i5.PageRouteInfo<DeckRouteArgs> {
-  DeckRoute({_i6.Key? key, required int deckId, bool isEditing = false})
+  DeckRoute({_i6.Key? key, required String deckId, bool isEditing = false})
       : super(DeckRoute.name,
             path: '/deck/:deckId',
             args: DeckRouteArgs(key: key, deckId: deckId, isEditing: isEditing),
@@ -124,7 +124,7 @@ class DeckRouteArgs {
 
   final _i6.Key? key;
 
-  final int deckId;
+  final String deckId;
 
   final bool isEditing;
 
@@ -137,7 +137,7 @@ class DeckRouteArgs {
 /// generated route for
 /// [_i4.TemplateScreen]
 class TemplateRoute extends _i5.PageRouteInfo<TemplateRouteArgs> {
-  TemplateRoute({_i6.Key? key, required int templateId})
+  TemplateRoute({_i6.Key? key, required String templateId})
       : super(TemplateRoute.name,
             path: '/card/:templateId',
             args: TemplateRouteArgs(key: key, templateId: templateId),
@@ -151,7 +151,7 @@ class TemplateRouteArgs {
 
   final _i6.Key? key;
 
-  final int templateId;
+  final String templateId;
 
   @override
   String toString() {

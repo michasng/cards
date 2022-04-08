@@ -18,7 +18,7 @@ class TemplateListTile extends StatelessWidget {
       tileColor: template.color.color,
       textColor: template.color.contrastColor,
       onTap: () {
-        AutoRouter.of(context).push(TemplateRoute(templateId: template.id));
+        AutoRouter.of(context).push(TemplateRoute(templateId: template.id!));
       },
     );
   }

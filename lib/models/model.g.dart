@@ -7,7 +7,7 @@ part of 'model.dart';
 // **************************************************************************
 
 Model _$ModelFromJson(Map<String, dynamic> json) => Model(
-      json['id'] as int,
+      json['id'] as String?,
     );
 
 Map<String, dynamic> _$ModelToJson(Model instance) => <String, dynamic>{

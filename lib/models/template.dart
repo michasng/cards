@@ -10,8 +10,8 @@ class Template extends Model {
   final bool isActive;
   final ColorData color;
 
-  const Template(
-    int id, {
+  Template({
+    String? id,
     required this.template,
     required this.isActive,
     required this.color,
