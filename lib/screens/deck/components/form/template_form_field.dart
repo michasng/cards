@@ -2,14 +2,15 @@ import 'package:cards/components/dialogs/color_picker_dialog.dart';
 import 'package:cards/models/common/color_data.dart';
 import 'package:cards/models/template.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TemplateFormField extends StatefulWidget {
-  final Template? initialValue;
+  final Template model;
   final void Function(Template) onSaved;
 
   const TemplateFormField({
     Key? key,
-    required this.initialValue,
+    required this.model,
     required this.onSaved,
   }) : super(key: key);
 
@@ -24,39 +25,46 @@ class _TemplateFormFieldState extends State<TemplateFormField> {
   void initState() {
     super.initState();
 
-    _color =
-        widget.initialValue?.color ?? ColorData.fromColor(Color(0xff000000));
+    _color = widget.model.color;
   }
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
+
+    final textStyle = Theme.of(context)
+        .textTheme
+        .subtitle1
+        ?.copyWith(color: _color.contrastColor);
+
     return ListTile(
       title: TextFormField(
-        initialValue: widget.initialValue?.template,
+        initialValue: widget.model.template,
         onSaved: (value) {
           widget.onSaved(
-            Template(
-              template: value!,
-              isActive: true,
-              color: _color,
-            ),
+            widget.model
+              ..template = value!
+              ..color = _color,
           );
         },
-        style: Theme.of(context)
-            .textTheme
-            .subtitle1
-            ?.copyWith(color: _color.contrastColor),
+        decoration: InputDecoration(
+          fillColor: _color.color,
+          border: InputBorder.none,
+          hintStyle: textStyle,
+          hintText: locale.placeholder,
+        ),
+        style: textStyle,
       ),
       tileColor: _color.color,
-      textColor: _color.contrastColor,
+      iconColor: _color.contrastColor,
       trailing: IconButton(
         icon: Icon(Icons.color_lens),
-        color: _color.contrastColor,
         onPressed: () async {
-          final color = await showDialog(
+          final color = await showDialog<Color>(
             context: context,
             builder: (context) => ColorPickerDialog(pickerColor: _color.color),
           );
+          if (color == null) return;
           setState(() {
             _color = ColorData.fromColor(color);
           });

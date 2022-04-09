@@ -6,8 +6,8 @@ part 'deck.g.dart';
 
 @JsonSerializable()
 class Deck extends Model {
-  final String name;
-  final List<Template> templates;
+  String name;
+  List<Template> templates;
 
   Deck({
     String? id,

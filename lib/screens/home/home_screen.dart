@@ -1,4 +1,6 @@
 import 'package:cards/components/text/heading.dart';
+import 'package:cards/screens/components/screen.dart';
+import 'package:cards/screens/components/screen_bar.dart';
 import 'package:cards/screens/home/components/deck_list.dart';
 import 'package:cards/services/deck_service.dart';
 import 'package:flutter/material.dart';
@@ -12,15 +14,17 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
 
-    return Scaffold(
-      appBar: AppBar(title: Text('Home')),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Heading(locale.decks),
-            DeckList(decks: GetIt.I<DeckService>().findAll()),
-          ],
-        ),
+    return Screen(
+      appBar: ScreenBar(
+        showHome: false,
+        title: Text(locale.home),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Heading(locale.decks),
+          DeckList(decks: GetIt.I<DeckService>().findAll()),
+        ],
       ),
     );
   }

@@ -8,9 +8,9 @@ part 'game.g.dart';
 
 @JsonSerializable()
 class Game extends Model {
-  final Deck deck;
-  final List<GameCard> gameCards;
-  final List<User> users;
+  Deck deck;
+  List<GameCard> gameCards;
+  List<User> users;
 
   Game({
     String? id,

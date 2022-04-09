@@ -6,9 +6,9 @@ part 'template.g.dart';
 
 @JsonSerializable()
 class Template extends Model {
-  final String template;
-  final bool isActive;
-  final ColorData color;
+  String template;
+  bool isActive;
+  ColorData color;
 
   Template({
     String? id,

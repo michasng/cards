@@ -1,4 +1,5 @@
 import 'package:auto_route/annotations.dart';
+import 'package:cards/screens/components/screen.dart';
 import 'package:flutter/material.dart';
 
 class TemplateScreen extends StatelessWidget {
@@ -11,8 +12,8 @@ class TemplateScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Text('Template'),
+    return Screen(
+      child: Text('Template'),
     );
   }
 }

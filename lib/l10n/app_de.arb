@@ -1,4 +1,5 @@
 {
+  "home": "Homescreen",
   "decks": "Decks",
   "deck": "Deck",
   "deckName": "Deck \"{name}\"",
@@ -15,5 +16,7 @@
       "count": {}
     }
   },
-  "card": "Karte"
+  "card": "Karte",
+  "newCard": "neue Karte",
+  "placeholder": "|"
 }

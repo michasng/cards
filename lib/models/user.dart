@@ -5,7 +5,7 @@ part 'user.g.dart';
 
 @JsonSerializable()
 class User extends Model {
-  final String name;
+  String name;
 
   User({
     String? id,

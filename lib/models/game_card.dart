@@ -6,8 +6,8 @@ part 'game_card.g.dart';
 
 @JsonSerializable()
 class GameCard extends Model {
-  final Template template;
-  final String text;
+  Template template;
+  String text;
 
   GameCard({
     String? id,

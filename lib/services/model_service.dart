@@ -23,7 +23,7 @@ abstract class ModelService<T extends Model> {
 
   void load(Iterable<T> values) {
     var nextId = _generateNewNumericId();
-    _collection.addAll(values.map((e) => e.withId((nextId++).toString()) as T));
+    _collection.addAll(values.map((e) => e..id = (nextId++).toString()));
   }
 
   bool exists(String id) {
@@ -41,7 +41,7 @@ abstract class ModelService<T extends Model> {
   }
 
   T create(T model) {
-    if (model.id == null) model.withId(_generateNewNumericId().toString());
+    model.id ??= _generateNewNumericId().toString();
     _collection.add(model);
     return model;
   }

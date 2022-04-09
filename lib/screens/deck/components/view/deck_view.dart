@@ -1,4 +1,6 @@
+import 'package:cards/components/layout/split_column.dart';
 import 'package:cards/components/text/heading.dart';
+import 'package:cards/constants.dart';
 import 'package:cards/models/deck.dart';
 import 'package:cards/screens/deck/components/view/template_list.dart';
 import 'package:flutter/material.dart';
@@ -16,11 +18,13 @@ class DeckView extends StatelessWidget {
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
 
-    return Column(
+    return SplitColumn(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Heading(locale.templateCount(deck.templates.length)),
         TemplateList(templates: deck.templates),
       ],
+      divider: SizedBox(height: defaultPadding),
     );
   }
 }

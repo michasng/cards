@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cards/app_router.gr.dart';
+import 'package:cards/screens/components/screen.dart';
+import 'package:cards/screens/components/screen_bar.dart';
 import 'package:cards/screens/deck/components/form/deck_form.dart';
 import 'package:cards/screens/deck/components/view/deck_view.dart';
 import 'package:cards/services/deck_service.dart';
@@ -7,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 
-class DeckScreen extends StatelessWidget {
+class DeckScreen extends StatefulWidget {
   final String deckId;
   final bool isEditing;
 
@@ -18,36 +20,47 @@ class DeckScreen extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<DeckScreen> createState() => _DeckScreenState();
+}
+
+class _DeckScreenState extends State<DeckScreen> {
+  final _formKey = GlobalKey<FormState>();
+
+  @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
-    final deck = GetIt.I<DeckService>().findOne(deckId);
+    final deck = GetIt.I<DeckService>().findOne(widget.deckId);
 
-    return Scaffold(
-      appBar: AppBar(
+    return Screen(
+      appBar: ScreenBar(
         title: Text(locale.deckName(deck.name)),
         actions: [
           IconButton(
-            icon: Icon(isEditing ? Icons.save : Icons.edit),
+            icon: Icon(widget.isEditing ? Icons.save : Icons.edit),
             onPressed: () {
+              final formState = _formKey.currentState;
+              if (widget.isEditing && formState?.validate() != null)
+                formState?.save();
+
               AutoRouter.of(context).replace(
                 DeckRoute(
-                  deckId: deckId,
-                  isEditing: !isEditing,
+                  deckId: widget.deckId,
+                  isEditing: !widget.isEditing,
                 ),
               );
             },
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: isEditing ? DeckForm(deck: deck) : DeckView(deck: deck),
-      ),
-      floatingActionButton: isEditing
+      child: widget.isEditing
+          ? DeckForm(formKey: _formKey, deck: deck)
+          : DeckView(deck: deck),
+      floatingActionButton: widget.isEditing
           ? null
           : FloatingActionButton(
               child: Icon(Icons.play_arrow),
               onPressed: () {
-                AutoRouter.of(context).push(GameRoute(deckId: deckId));
+                AutoRouter.of(context).push(GameRoute(deckId: widget.deckId));
               },
             ),
     );

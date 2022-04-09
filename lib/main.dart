@@ -42,6 +42,7 @@ class App extends StatelessWidget {
       theme: ThemeData.light().copyWith(colorScheme: colorScheme),
       darkTheme: ThemeData.dark().copyWith(colorScheme: colorScheme),
       themeMode: ThemeMode.light,
+      debugShowCheckedModeBanner: false,
       routerDelegate: _appRouter.delegate(),
       routeInformationParser: _appRouter.defaultRouteParser(),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
