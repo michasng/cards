@@ -8,18 +8,17 @@ part of 'game.dart';
 
 Game _$GameFromJson(Map<String, dynamic> json) => Game(
       id: json['id'] as String?,
-      deck: Deck.fromJson(json['deck'] as Map<String, dynamic>),
-      gameCards: (json['gameCards'] as List<dynamic>)
-          .map((e) => GameCard.fromJson(e as Map<String, dynamic>))
+      deckId: json['deckId'] as String,
+      gameCardIds: (json['gameCardIds'] as List<dynamic>)
+          .map((e) => e as String)
           .toList(),
-      users: (json['users'] as List<dynamic>)
-          .map((e) => User.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      userIds:
+          (json['userIds'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$GameToJson(Game instance) => <String, dynamic>{
       'id': instance.id,
-      'deck': instance.deck,
-      'gameCards': instance.gameCards,
-      'users': instance.users,
+      'deckId': instance.deckId,
+      'gameCardIds': instance.gameCardIds,
+      'userIds': instance.userIds,
     };

@@ -9,13 +9,13 @@ part of 'deck.dart';
 Deck _$DeckFromJson(Map<String, dynamic> json) => Deck(
       id: json['id'] as String?,
       name: json['name'] as String,
-      templates: (json['templates'] as List<dynamic>)
-          .map((e) => Template.fromJson(e as Map<String, dynamic>))
+      templateIds: (json['templateIds'] as List<dynamic>)
+          .map((e) => e as String)
           .toList(),
     );
 
 Map<String, dynamic> _$DeckToJson(Deck instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'templates': instance.templates,
+      'templateIds': instance.templateIds,
     };

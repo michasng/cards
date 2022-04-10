@@ -1,62 +1,56 @@
 import 'package:cards/models/model.dart';
-
-extension _NumericId on Model {
-  get numericId => int.parse(id!);
-}
+import 'package:localstore/localstore.dart';
 
 abstract class ModelService<T extends Model> {
-  final List<T> _collection = [];
+  final String collectionName;
+  final T Function(Map<String, dynamic> json) fromJson;
 
-  int get size => _collection.length;
+  final _db = Localstore.instance;
+  CollectionRef get _collectionRef => _db.collection(collectionName);
+  Future<Map<String, dynamic>> get _collection async =>
+      (await _collectionRef.get())!;
 
-  int _index(String id) {
-    return _collection.indexWhere((e) => e.id == id);
+  ModelService({
+    required this.collectionName,
+    required this.fromJson,
+  });
+
+  Future<int> get size async => (await _collection).length;
+  Future<bool> get isEmpty async => (await _collectionRef.get()) == null;
+  Future<bool> get isNotEmpty async => !await isEmpty;
+
+  Future<void> load(Iterable<T> values) async {
+    for (final e in values) await save(e);
   }
 
-  int _generateNewNumericId() {
-    if (size == 0) return 0;
-    return _collection
-            .reduce((e1, e2) => e1.numericId > e2.numericId ? e1 : e2)
-            .numericId +
-        1;
+  Future<bool> exists(String id) async {
+    return (await _collection).containsKey(id);
   }
 
-  void load(Iterable<T> values) {
-    var nextId = _generateNewNumericId();
-    _collection.addAll(values.map((e) => e..id = (nextId++).toString()));
+  Future<Iterable<T>> findAll({List<String>? ids}) async {
+    var values = (await _collection).values;
+
+    if (ids != null)
+      values = values.where((value) => ids.contains(value['id']));
+
+    return values.map((value) => fromJson(value));
   }
 
-  bool exists(String id) {
-    return _collection.any((e) => e.id == id);
+  Future<T> findOne(String id) async {
+    final doc = (await _collectionRef.doc(id).get())!;
+    return fromJson(doc);
   }
 
-  List<T> findAll({List<String>? ids}) {
-    if (ids == null) return _collection;
-
-    return ids.map((id) => findOne(id)).toList();
-  }
-
-  T findOne(String id) {
-    return _collection[_index(id)];
-  }
-
-  T create(T model) {
-    model.id ??= _generateNewNumericId().toString();
-    _collection.add(model);
+  Future<T> save(T model) async {
+    final doc = _collectionRef.doc(model.id);
+    model.id = doc.id;
+    await doc.set(model.toJson());
     return model;
   }
 
-  T update(T model) {
-    _collection[_index(model.id!)] = model;
+  Future<T> delete(String id) async {
+    final model = await findOne(id);
+    _collectionRef.doc(id).delete();
     return model;
-  }
-
-  T createOrUpdate(T model) {
-    if (model.id != null && exists(model.id!)) return update(model);
-    return create(model);
-  }
-
-  T remove(String id) {
-    return _collection.removeAt(_index(id));
   }
 }

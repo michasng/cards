@@ -38,8 +38,8 @@ class _TemplateFormFieldListState extends State<TemplateFormFieldList> {
         ..._templates.map(
           (template) => TemplateFormField(
             model: template,
-            onSaved: (value) {
-              GetIt.I<TemplateService>().createOrUpdate(value);
+            onSaved: (value) async {
+              await GetIt.I<TemplateService>().save(value);
             },
           ),
         ),

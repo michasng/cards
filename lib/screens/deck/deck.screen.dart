@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cards/app_router.gr.dart';
+import 'package:cards/components/async/async_builder.dart';
+import 'package:cards/models/deck.dart';
 import 'package:cards/screens/components/screen.dart';
 import 'package:cards/screens/components/screen_bar.dart';
 import 'package:cards/screens/deck/components/form/deck_form.dart';
@@ -29,11 +31,14 @@ class _DeckScreenState extends State<DeckScreen> {
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
-    final deck = GetIt.I<DeckService>().findOne(widget.deckId);
+    final deckFuture = GetIt.I<DeckService>().findOne(widget.deckId);
 
     return Screen(
       appBar: ScreenBar(
-        title: Text(locale.deckName(deck.name)),
+        title: AsyncBuilder<Deck>(
+          future: deckFuture,
+          builder: (context, deck) => Text(locale.deckName(deck.name)),
+        ),
         actions: [
           IconButton(
             icon: Icon(widget.isEditing ? Icons.save : Icons.edit),
@@ -52,9 +57,12 @@ class _DeckScreenState extends State<DeckScreen> {
           ),
         ],
       ),
-      child: widget.isEditing
-          ? DeckForm(formKey: _formKey, deck: deck)
-          : DeckView(deck: deck),
+      child: AsyncBuilder<Deck>(
+        future: deckFuture,
+        builder: (context, deck) => widget.isEditing
+            ? DeckForm(formKey: _formKey, deck: deck)
+            : DeckView(deck: deck),
+      ),
       floatingActionButton: widget.isEditing
           ? null
           : FloatingActionButton(

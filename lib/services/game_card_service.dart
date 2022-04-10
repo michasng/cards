@@ -3,10 +3,13 @@ import 'package:cards/models/template.dart';
 import 'package:cards/services/model_service.dart';
 
 class GameCardService extends ModelService<GameCard> {
-  GameCard generate({required Template template}) {
-    return create(
+  GameCardService()
+      : super(collectionName: 'gameCards', fromJson: GameCard.fromJson);
+
+  Future<GameCard> generate({required Template template}) async {
+    return save(
       GameCard(
-        template: template,
+        templateId: template.id!,
         text: template.template,
       ),
     );

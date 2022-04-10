@@ -1,31 +1,42 @@
+import 'dart:convert';
+
 import 'package:cards/app_router.gr.dart';
-import 'package:cards/services/app_service.dart';
+import 'package:cards/models/deck.dart';
+import 'package:cards/models/template.dart';
 import 'package:cards/services/deck_service.dart';
 import 'package:cards/services/game_card_service.dart';
 import 'package:cards/services/game_service.dart';
 import 'package:cards/services/template_service.dart';
 import 'package:cards/services/user_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await registerServices();
+  registerServices();
+  await seed();
   runApp(App());
 }
 
-Future<void> registerServices() async {
-  final getIt = GetIt.I;
+void registerServices() {
+  GetIt.I.registerSingleton(UserService());
+  GetIt.I.registerSingleton(TemplateService());
+  GetIt.I.registerSingleton(DeckService());
+  GetIt.I.registerSingleton(GameCardService());
+  GetIt.I.registerSingleton(GameService());
+}
 
-  getIt.registerSingleton(UserService());
-  getIt.registerSingleton(TemplateService());
-  getIt.registerSingleton(DeckService());
-  getIt.registerSingleton(GameCardService());
-  getIt.registerSingleton(GameService());
-  getIt.registerSingletonAsync(AppService().seeded);
-
-  await getIt.allReady();
+Future<void> seed() async {
+  if (await GetIt.I<DeckService>().isEmpty) {
+    final str = await rootBundle.loadString('assets/seeds.json');
+    final json = jsonDecode(str);
+    await GetIt.I<TemplateService>()
+        .load((json['templates'] as List).map((e) => Template.fromJson(e)));
+    await GetIt.I<DeckService>()
+        .load((json['decks'] as List).map((e) => Deck.fromJson(e)));
+  }
 }
 
 class App extends StatelessWidget {

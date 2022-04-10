@@ -1,4 +1,6 @@
+import 'package:cards/components/async/async_builder.dart';
 import 'package:cards/components/text/heading.dart';
+import 'package:cards/models/deck.dart';
 import 'package:cards/screens/components/screen.dart';
 import 'package:cards/screens/components/screen_bar.dart';
 import 'package:cards/screens/home/components/deck_list.dart';
@@ -23,7 +25,10 @@ class HomeScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Heading(locale.decks),
-          DeckList(decks: GetIt.I<DeckService>().findAll()),
+          AsyncBuilder<Iterable<Deck>>(
+            future: GetIt.I<DeckService>().findAll(),
+            builder: (context, decks) => DeckList(decks: decks.toList()),
+          ),
         ],
       ),
     );

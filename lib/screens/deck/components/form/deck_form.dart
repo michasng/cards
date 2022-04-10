@@ -1,6 +1,8 @@
+import 'package:cards/components/async/async_builder.dart';
 import 'package:cards/components/layout/split_column.dart';
 import 'package:cards/constants.dart';
 import 'package:cards/models/deck.dart';
+import 'package:cards/models/template.dart';
 import 'package:cards/screens/deck/components/form/template_form_field_list.dart';
 import 'package:cards/services/deck_service.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +39,10 @@ class _DeckFormState extends State<DeckForm> {
       child: SplitColumn(
         children: [
           _buildDeckNameField(context),
-          TemplateFormFieldList(templates: widget.deck.templates),
+          AsyncBuilder<Iterable<Template>>(
+              future: widget.deck.templates,
+              builder: (context, templates) =>
+                  TemplateFormFieldList(templates: templates.toList()),),
         ],
         divider: SizedBox(height: defaultPadding),
       ),
@@ -54,9 +59,9 @@ class _DeckFormState extends State<DeckForm> {
         alignLabelWithHint: true,
       ),
       initialValue: widget.deck.name,
-      onSaved: (value) {
+      onSaved: (value) async {
         widget.deck.name = value!;
-        GetIt.I<DeckService>().createOrUpdate(widget.deck);
+        await GetIt.I<DeckService>().save(widget.deck);
       },
     );
   }

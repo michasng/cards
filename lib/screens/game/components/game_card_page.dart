@@ -1,4 +1,6 @@
+import 'package:cards/components/async/async_builder.dart';
 import 'package:cards/models/game_card.dart';
+import 'package:cards/models/template.dart';
 import 'package:flutter/material.dart';
 
 class GameCardPage extends StatelessWidget {
@@ -11,16 +13,19 @@ class GameCardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: gameCard.template.color.color,
-      alignment: Alignment.center,
-      child: FittedBox(
-        child: Text(
-          gameCard.text,
-          style: Theme.of(context)
-              .textTheme
-              .headline3
-              ?.copyWith(color: gameCard.template.color.contrastColor),
+    return AsyncBuilder<Template>(
+      future: gameCard.template,
+      builder: (context, template) => Container(
+        color: template.color.color,
+        alignment: Alignment.center,
+        child: FittedBox(
+          child: Text(
+            gameCard.text,
+            style: Theme.of(context)
+                .textTheme
+                .headline3
+                ?.copyWith(color: template.color.contrastColor),
+          ),
         ),
       ),
     );

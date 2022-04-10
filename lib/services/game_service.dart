@@ -6,24 +6,26 @@ import 'package:cards/services/model_service.dart';
 import 'package:get_it/get_it.dart';
 
 class GameService extends ModelService<Game> {
+  GameService() : super(collectionName: 'games', fromJson: Game.fromJson);
+
   GameCardService get _gameCardService => GetIt.I<GameCardService>();
 
-  Game startNewGame({
+  Future<Game> startNewGame({
     required List<User> users,
     required Deck deck,
-  }) {
-    final gameCards = deck.templates
-        .map(
-          (template) => _gameCardService.generate(template: template),
-        )
-        .toList();
+  }) async {
+    final gameCards = await Future.wait(
+      (await deck.templates).map(
+        (template) async => await _gameCardService.generate(template: template),
+      ),
+    );
     gameCards.shuffle();
 
-    return create(
+    return save(
       Game(
-        deck: deck,
-        gameCards: gameCards,
-        users: users,
+        deckId: deck.id!,
+        gameCardIds: gameCards.map((e) => e.id!).toList(),
+        userIds: users.map((e) => e.id!).toList(),
       ),
     );
   }
