@@ -9,24 +9,32 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 
 class TemplateFormFieldList extends StatefulWidget {
-  final List<Template> templates;
+  final List<Template> initialTemplates;
 
   const TemplateFormFieldList({
     Key? key,
-    required this.templates,
+    required this.initialTemplates,
   }) : super(key: key);
 
   @override
-  State<TemplateFormFieldList> createState() => _TemplateFormFieldListState();
+  State<TemplateFormFieldList> createState() => TemplateFormFieldListState();
 }
 
-class _TemplateFormFieldListState extends State<TemplateFormFieldList> {
-  late final List<Template> _templates;
+class TemplateFormFieldListState extends State<TemplateFormFieldList> {
+  final List<Template> _templates = [];
 
   @override
   void initState() {
     super.initState();
-    _templates = widget.templates;
+    _templates.addAll(widget.initialTemplates);
+  }
+
+  Future<List<Template>> save() async {
+    await GetIt.I<TemplateService>().saveChanges(
+      before: widget.initialTemplates,
+      after: _templates,
+    );
+    return _templates;
   }
 
   @override
@@ -36,12 +44,7 @@ class _TemplateFormFieldListState extends State<TemplateFormFieldList> {
     return SplitColumn(
       children: [
         ..._templates.map(
-          (template) => TemplateFormField(
-            model: template,
-            onSaved: (value) async {
-              await GetIt.I<TemplateService>().save(value);
-            },
-          ),
+          (template) => TemplateFormField(template: template),
         ),
         ElevatedButton.icon(
           onPressed: () {

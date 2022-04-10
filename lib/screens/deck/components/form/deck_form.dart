@@ -11,25 +11,36 @@ import 'package:get_it/get_it.dart';
 
 class DeckForm extends StatefulWidget {
   final Deck deck;
-  final GlobalKey<FormState> formKey;
 
   const DeckForm({
     Key? key,
     required this.deck,
-    required this.formKey,
   }) : super(key: key);
 
   @override
-  State<DeckForm> createState() => _DeckFormState();
+  State<DeckForm> createState() => DeckFormState();
 }
 
-class _DeckFormState extends State<DeckForm> {
-  late final GlobalKey<FormState> _formKey;
+class DeckFormState extends State<DeckForm> {
+  late final _formKey = GlobalKey<FormState>();
+  late final _templateFormFieldListKey =
+      GlobalKey<TemplateFormFieldListState>();
 
   @override
   void initState() {
     super.initState();
-    _formKey = widget.formKey;
+  }
+
+  Future<void> save() async {
+    final formState = _formKey.currentState;
+    final listKey = _templateFormFieldListKey.currentState;
+    if (formState == null || listKey == null || !formState.validate()) return;
+
+    formState.save();
+
+    final templates = await listKey.save();
+    widget.deck.templateIds = templates.map((e) => e.id!).toList();
+    await GetIt.I<DeckService>().save(widget.deck);
   }
 
   @override
@@ -40,9 +51,12 @@ class _DeckFormState extends State<DeckForm> {
         children: [
           _buildDeckNameField(context),
           AsyncBuilder<Iterable<Template>>(
-              future: widget.deck.templates,
-              builder: (context, templates) =>
-                  TemplateFormFieldList(templates: templates.toList()),),
+            future: widget.deck.templates,
+            builder: (context, templates) => TemplateFormFieldList(
+              key: _templateFormFieldListKey,
+              initialTemplates: templates.toList(),
+            ),
+          ),
         ],
         divider: SizedBox(height: defaultPadding),
       ),
@@ -61,7 +75,6 @@ class _DeckFormState extends State<DeckForm> {
       initialValue: widget.deck.name,
       onSaved: (value) async {
         widget.deck.name = value!;
-        await GetIt.I<DeckService>().save(widget.deck);
       },
     );
   }

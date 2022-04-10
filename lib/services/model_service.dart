@@ -53,4 +53,14 @@ abstract class ModelService<T extends Model> {
     _collectionRef.doc(id).delete();
     return model;
   }
+
+  Future<void> saveChanges({
+    required List<T> before,
+    required List<T> after,
+  }) async {
+    final toRemove = before.where((e) => !after.contains(e));
+
+    for (final e in toRemove) await delete(e.id!);
+    for (final e in after) await save(e); // create or update
+  }
 }

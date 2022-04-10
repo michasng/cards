@@ -26,7 +26,7 @@ class DeckScreen extends StatefulWidget {
 }
 
 class _DeckScreenState extends State<DeckScreen> {
-  final _formKey = GlobalKey<FormState>();
+  final _deckFormKey = GlobalKey<DeckFormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +42,8 @@ class _DeckScreenState extends State<DeckScreen> {
         actions: [
           IconButton(
             icon: Icon(widget.isEditing ? Icons.save : Icons.edit),
-            onPressed: () {
-              final formState = _formKey.currentState;
-              if (widget.isEditing && formState?.validate() != null)
-                formState?.save();
+            onPressed: () async {
+              if (widget.isEditing) await _deckFormKey.currentState?.save();
 
               AutoRouter.of(context).replace(
                 DeckRoute(
@@ -60,7 +58,7 @@ class _DeckScreenState extends State<DeckScreen> {
       child: AsyncBuilder<Deck>(
         future: deckFuture,
         builder: (context, deck) => widget.isEditing
-            ? DeckForm(formKey: _formKey, deck: deck)
+            ? DeckForm(key: _deckFormKey, deck: deck)
             : DeckView(deck: deck),
       ),
       floatingActionButton: widget.isEditing

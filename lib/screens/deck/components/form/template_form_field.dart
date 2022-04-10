@@ -5,13 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TemplateFormField extends StatefulWidget {
-  final Template model;
-  final void Function(Template) onSaved;
+  final Template template;
 
   const TemplateFormField({
     Key? key,
-    required this.model,
-    required this.onSaved,
+    required this.template,
   }) : super(key: key);
 
   @override
@@ -25,7 +23,7 @@ class _TemplateFormFieldState extends State<TemplateFormField> {
   void initState() {
     super.initState();
 
-    _color = widget.model.color;
+    _color = widget.template.color;
   }
 
   @override
@@ -39,13 +37,11 @@ class _TemplateFormFieldState extends State<TemplateFormField> {
 
     return ListTile(
       title: TextFormField(
-        initialValue: widget.model.template,
+        initialValue: widget.template.template,
         onSaved: (value) {
-          widget.onSaved(
-            widget.model
-              ..template = value!
-              ..color = _color,
-          );
+          widget.template
+            ..template = value!
+            ..color = _color;
         },
         decoration: InputDecoration(
           fillColor: _color.color,
