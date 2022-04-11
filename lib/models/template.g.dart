@@ -17,5 +17,5 @@ Map<String, dynamic> _$TemplateToJson(Template instance) => <String, dynamic>{
       'id': instance.id,
       'template': instance.template,
       'isActive': instance.isActive,
-      'color': instance.color,
+      'color': instance.color.toJson(),
     };
