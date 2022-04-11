@@ -28,12 +28,10 @@ abstract class ModelService<T extends Model> {
   }
 
   Future<Iterable<T>> findAll({List<String>? ids}) async {
-    var values = (await _collection).values;
-
     if (ids != null)
-      values = values.where((value) => ids.contains(value['id']));
+      return Future.wait(ids.map((id) async => await findOne(id)));
 
-    return values.map((value) => fromJson(value));
+    return (await _collection).values.map((value) => fromJson(value));
   }
 
   Future<T> findOne(String id) async {
