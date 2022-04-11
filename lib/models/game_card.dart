@@ -1,6 +1,7 @@
 import 'package:cards/models/model.dart';
 import 'package:cards/models/template.dart';
 import 'package:cards/services/template_service.dart';
+import 'package:cards/util/logging.dart';
 import 'package:get_it/get_it.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -20,7 +21,7 @@ class GameCard extends Model {
   }) : super(id);
 
   factory GameCard.fromJson(Map<String, dynamic> json) =>
-      _$GameCardFromJson(json);
+      logError(_$GameCardFromJson, json);
 
   @override
   Map<String, dynamic> toJson() => _$GameCardToJson(this);

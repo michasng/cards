@@ -5,6 +5,7 @@ import 'package:cards/models/user.dart';
 import 'package:cards/services/deck_service.dart';
 import 'package:cards/services/game_card_service.dart';
 import 'package:cards/services/user_service.dart';
+import 'package:cards/util/logging.dart';
 import 'package:get_it/get_it.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -28,7 +29,8 @@ class Game extends Model {
     required this.userIds,
   }) : super(id);
 
-  factory Game.fromJson(Map<String, dynamic> json) => _$GameFromJson(json);
+  factory Game.fromJson(Map<String, dynamic> json) =>
+      logError(_$GameFromJson, json);
 
   @override
   Map<String, dynamic> toJson() => _$GameToJson(this);

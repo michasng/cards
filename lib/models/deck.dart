@@ -1,6 +1,7 @@
 import 'package:cards/models/model.dart';
 import 'package:cards/models/template.dart';
 import 'package:cards/services/template_service.dart';
+import 'package:cards/util/logging.dart';
 import 'package:get_it/get_it.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -19,7 +20,8 @@ class Deck extends Model {
     required this.templateIds,
   }) : super(id);
 
-  factory Deck.fromJson(Map<String, dynamic> json) => _$DeckFromJson(json);
+  factory Deck.fromJson(Map<String, dynamic> json) =>
+      logError(_$DeckFromJson, json);
 
   @override
   Map<String, dynamic> toJson() => _$DeckToJson(this);

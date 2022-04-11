@@ -1,5 +1,6 @@
 import 'package:cards/models/common/color_data.dart';
 import 'package:cards/models/model.dart';
+import 'package:cards/util/logging.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'template.g.dart';
@@ -18,7 +19,7 @@ class Template extends Model {
   }) : super(id);
 
   factory Template.fromJson(Map<String, dynamic> json) =>
-      _$TemplateFromJson(json);
+      logError(_$TemplateFromJson, json);
 
   @override
   Map<String, dynamic> toJson() => _$TemplateToJson(this);

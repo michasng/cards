@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:cards/util/logging.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'color_data.g.dart';
@@ -27,7 +28,7 @@ class ColorData {
       ColorData(red: color.red, green: color.green, blue: color.blue);
 
   factory ColorData.fromJson(Map<String, dynamic> json) =>
-      _$ColorDataFromJson(json);
+      logError(_$ColorDataFromJson, json);
 
   Map<String, dynamic> toJson() => _$ColorDataToJson(this);
 }
