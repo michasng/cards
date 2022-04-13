@@ -1,32 +1,19 @@
 import 'package:cards/components/dialogs/color_picker_dialog.dart';
-import 'package:cards/models/common/color_data.dart';
 import 'package:cards/models/template.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class TemplateFormField extends StatefulWidget {
+class TemplateFormField extends StatelessWidget {
   final Template template;
+  final void Function(Color color) onColorSelected;
   final VoidCallback onRemove;
 
   const TemplateFormField({
     Key? key,
     required this.template,
+    required this.onColorSelected,
     required this.onRemove,
   }) : super(key: key);
-
-  @override
-  State<TemplateFormField> createState() => _TemplateFormFieldState();
-}
-
-class _TemplateFormFieldState extends State<TemplateFormField> {
-  late ColorData _color;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _color = widget.template.color;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,32 +22,30 @@ class _TemplateFormFieldState extends State<TemplateFormField> {
     final textStyle = Theme.of(context)
         .textTheme
         .subtitle1
-        ?.copyWith(color: _color.contrastColor);
+        ?.copyWith(color: template.color.contrastColor);
 
     return ListTile(
       title: TextFormField(
-        initialValue: widget.template.template,
+        initialValue: template.template,
         onSaved: (value) {
-          widget.template
-            ..template = value!
-            ..color = _color;
+          template.template = value!;
         },
         decoration: InputDecoration(
-          fillColor: _color.color,
+          // fillColor: template.color.color,
           border: InputBorder.none,
           hintStyle: textStyle,
           hintText: locale.placeholder,
         ),
         style: textStyle,
       ),
-      tileColor: _color.color,
-      iconColor: _color.contrastColor,
+      tileColor: template.color.color,
+      iconColor: template.color.contrastColor,
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           IconButton(
             icon: Icon(Icons.delete),
-            onPressed: widget.onRemove,
+            onPressed: onRemove,
           ),
           IconButton(
             icon: Icon(Icons.color_lens),
@@ -68,12 +53,10 @@ class _TemplateFormFieldState extends State<TemplateFormField> {
               final color = await showDialog<Color>(
                 context: context,
                 builder: (context) =>
-                    ColorPickerDialog(pickerColor: _color.color),
+                    ColorPickerDialog(pickerColor: template.color.color),
               );
               if (color == null) return;
-              setState(() {
-                _color = ColorData.fromColor(color);
-              });
+              onColorSelected(color);
             },
           ),
         ],

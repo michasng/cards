@@ -65,6 +65,11 @@ class TemplateFormFieldListState extends State<TemplateFormFieldList> {
                       Flexible(
                         child: TemplateFormField(
                           template: template,
+                          onColorSelected: (color) {
+                            setState(() {
+                              template.color = ColorData.fromColor(color);
+                            });
+                          },
                           onRemove: () {
                             setState(() {
                               _templates.remove(template);
@@ -93,7 +98,7 @@ class TemplateFormFieldListState extends State<TemplateFormFieldList> {
               template: '',
               isActive: true,
               color: _templates.isNotEmpty
-                  ? _templates.first.color
+                  ? _templates.last.color
                   : ColorData.fromColor(Color(0xff000000)),
             );
             setState(() {
