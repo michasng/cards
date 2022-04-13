@@ -20,6 +20,19 @@ class HomeScreen extends StatelessWidget {
       appBar: ScreenBar(
         showHome: false,
         title: Text(locale.home),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.download),
+            onPressed: () async {
+              final decks = await GetIt.I<DeckService>().findAll();
+              await GetIt.I<DeckService>().saveAsFile(
+                name: 'decks',
+                decks: decks.toList(),
+                context: context,
+              );
+            },
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

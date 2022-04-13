@@ -1,11 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cards/app_router.gr.dart';
+import 'package:cards/constants.dart';
+import 'package:cards/util/divide.dart';
 import 'package:flutter/material.dart';
 
 class ScreenBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showHome;
   final Widget? title;
-  final List<Widget>? actions;
+  final List<Widget> actions;
   @override
   final Size preferredSize;
 
@@ -13,7 +15,7 @@ class ScreenBar extends StatelessWidget implements PreferredSizeWidget {
     Key? key,
     this.showHome = true,
     this.title,
-    this.actions,
+    this.actions = const [],
   })  : preferredSize = Size.fromHeight(kToolbarHeight),
         super(key: key);
 
@@ -30,7 +32,13 @@ class ScreenBar extends StatelessWidget implements PreferredSizeWidget {
           : null,
       automaticallyImplyLeading: false,
       title: title,
-      actions: actions,
+      actions: [
+        ...withSeparator(
+          list: actions,
+          separator: SizedBox(width: defaultPadding),
+        ),
+        SizedBox(width: defaultPadding),
+      ],
     );
   }
 }

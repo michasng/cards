@@ -18,5 +18,11 @@
   },
   "card": "Karte",
   "newCard": "neue Karte",
-  "placeholder": "|"
+  "placeholder": "|",
+  "fileSaved": "\"name\" erfolgreich gespeichert.",
+  "@fileSaved": {
+    "placeholders": {
+      "name": {}
+    }
+  }
 }

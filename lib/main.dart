@@ -4,6 +4,7 @@ import 'package:cards/app_router.gr.dart';
 import 'package:cards/models/deck.dart';
 import 'package:cards/models/template.dart';
 import 'package:cards/services/deck_service.dart';
+import 'package:cards/services/file_service.dart';
 import 'package:cards/services/game_card_service.dart';
 import 'package:cards/services/game_service.dart';
 import 'package:cards/services/template_service.dart';
@@ -21,6 +22,7 @@ void main() async {
 }
 
 void registerServices() {
+  GetIt.I.registerSingleton(FileService());
   GetIt.I.registerSingleton(UserService());
   GetIt.I.registerSingleton(TemplateService());
   GetIt.I.registerSingleton(DeckService());

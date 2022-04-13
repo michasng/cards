@@ -40,6 +40,18 @@ class _DeckScreenState extends State<DeckScreen> {
           builder: (context, deck) => Text(locale.deckName(deck.name)),
         ),
         actions: [
+          if (!widget.isEditing)
+            IconButton(
+              icon: Icon(Icons.download),
+              onPressed: () async {
+                final deck = await deckFuture;
+                await GetIt.I<DeckService>().saveAsFile(
+                  name: deck.name,
+                  decks: [deck],
+                  context: context,
+                );
+              },
+            ),
           IconButton(
             icon: Icon(widget.isEditing ? Icons.save : Icons.edit),
             onPressed: () async {
