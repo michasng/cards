@@ -6,10 +6,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TemplateFormField extends StatefulWidget {
   final Template template;
+  final VoidCallback onRemove;
 
   const TemplateFormField({
     Key? key,
     required this.template,
+    required this.onRemove,
   }) : super(key: key);
 
   @override
@@ -53,18 +55,28 @@ class _TemplateFormFieldState extends State<TemplateFormField> {
       ),
       tileColor: _color.color,
       iconColor: _color.contrastColor,
-      trailing: IconButton(
-        icon: Icon(Icons.color_lens),
-        onPressed: () async {
-          final color = await showDialog<Color>(
-            context: context,
-            builder: (context) => ColorPickerDialog(pickerColor: _color.color),
-          );
-          if (color == null) return;
-          setState(() {
-            _color = ColorData.fromColor(color);
-          });
-        },
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: widget.onRemove,
+          ),
+          IconButton(
+            icon: Icon(Icons.color_lens),
+            onPressed: () async {
+              final color = await showDialog<Color>(
+                context: context,
+                builder: (context) =>
+                    ColorPickerDialog(pickerColor: _color.color),
+              );
+              if (color == null) return;
+              setState(() {
+                _color = ColorData.fromColor(color);
+              });
+            },
+          ),
+        ],
       ),
     );
   }

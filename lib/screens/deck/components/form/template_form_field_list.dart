@@ -43,8 +43,49 @@ class TemplateFormFieldListState extends State<TemplateFormFieldList> {
 
     return SplitColumn(
       children: [
-        ..._templates.map(
-          (template) => TemplateFormField(template: template),
+        ReorderableListView(
+          buildDefaultDragHandles: false,
+          onReorder: (oldIndex, newIndex) {
+            setState(() {
+              if (oldIndex < newIndex) {
+                newIndex -= 1;
+              }
+              final template = _templates.removeAt(oldIndex);
+              _templates.insert(newIndex, template);
+            });
+          },
+          children: _templates
+              .map(
+                (template) => Material(
+                  key: ValueKey(template),
+                  elevation: 1,
+                  color: template.color.color,
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: TemplateFormField(
+                          template: template,
+                          onRemove: () {
+                            setState(() {
+                              _templates.remove(template);
+                            });
+                          },
+                        ),
+                      ),
+                      ReorderableDragStartListener(
+                        child: Icon(
+                          Icons.drag_handle,
+                          color: template.color.contrastColor,
+                        ),
+                        index: _templates.indexOf(template),
+                      ),
+                      SizedBox(width: defaultPadding),
+                    ],
+                  ),
+                ),
+              )
+              .toList(),
+          shrinkWrap: true,
         ),
         ElevatedButton.icon(
           onPressed: () {
