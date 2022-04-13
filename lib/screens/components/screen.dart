@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class Screen extends StatelessWidget {
   final PreferredSizeWidget? appBar;
   final Widget child;
-  final FloatingActionButton? floatingActionButton;
+  final Widget? floatingActionButton;
 
   const Screen({
     Key? key,
@@ -23,6 +23,7 @@ class Screen extends StatelessWidget {
           child: child,
         ),
       ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: floatingActionButton,
     );
   }

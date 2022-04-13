@@ -13,11 +13,13 @@ class Deck extends Model {
   List<String> templateIds;
   Future<Iterable<Template>> get templates =>
       GetIt.I<TemplateService>().findAll(ids: templateIds);
+  bool isShuffled;
 
   Deck({
     String? id,
     required this.name,
     required this.templateIds,
+    required this.isShuffled,
   }) : super(id);
 
   factory Deck.fromJson(Map<String, dynamic> json) =>

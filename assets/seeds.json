@@ -34,7 +34,8 @@
   "decks": [
     {
       "name": "Ring of Fire",
-      "templateIds": ["0", "1", "2"]
+      "templateIds": ["0", "1", "2"],
+      "isShuffled": true
     }
   ]
 }

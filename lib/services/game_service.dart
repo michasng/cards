@@ -19,7 +19,7 @@ class GameService extends ModelService<Game> {
         (template) async => await _gameCardService.generate(template: template),
       ),
     );
-    gameCards.shuffle();
+    if (deck.isShuffled) gameCards.shuffle();
 
     return save(
       Game(

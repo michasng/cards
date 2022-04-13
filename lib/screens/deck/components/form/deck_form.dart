@@ -31,16 +31,17 @@ class DeckFormState extends State<DeckForm> {
     super.initState();
   }
 
-  Future<void> save() async {
+  Future<Deck?> save() async {
     final formState = _formKey.currentState;
     final listKey = _templateFormFieldListKey.currentState;
-    if (formState == null || listKey == null || !formState.validate()) return;
+    if (formState == null || listKey == null || !formState.validate())
+      return null;
 
     formState.save();
 
     final templates = await listKey.save();
     widget.deck.templateIds = templates.map((e) => e.id!).toList();
-    await GetIt.I<DeckService>().save(widget.deck);
+    return await GetIt.I<DeckService>().save(widget.deck);
   }
 
   @override

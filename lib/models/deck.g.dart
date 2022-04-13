@@ -12,10 +12,12 @@ Deck _$DeckFromJson(Map<String, dynamic> json) => Deck(
       templateIds: (json['templateIds'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
+      isShuffled: json['isShuffled'] as bool,
     );
 
 Map<String, dynamic> _$DeckToJson(Deck instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'templateIds': instance.templateIds,
+      'isShuffled': instance.isShuffled,
     };
