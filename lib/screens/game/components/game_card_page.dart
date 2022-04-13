@@ -1,4 +1,5 @@
 import 'package:cards/components/async/async_builder.dart';
+import 'package:cards/components/text/shrink_text.dart';
 import 'package:cards/models/game_card.dart';
 import 'package:cards/models/template.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class GameCardPage extends StatelessWidget {
       builder: (context, template) => Container(
         color: template.color.color,
         alignment: Alignment.center,
-        child: FittedBox(
+        child: ShrinkText(
           child: Text(
             gameCard.text,
             style: Theme.of(context)
