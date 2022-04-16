@@ -1,41 +1,90 @@
 {
-  "templates": [
-    {
-      "id": "0",
-      "template": "Jemand muss sein/ihr Glas leer trinken",
-      "isActive": true,
-      "color": {
-        "red": 200,
-        "green": 0,
-        "blue": 100
-      }
-    },
-    {
-      "id": "1",
-      "template": "Wasserfall",
-      "isActive": true,
-      "color": {
-        "red": 200,
-        "green": 250,
-        "blue": 100
-      }
-    },
-    {
-      "id": "2",
-      "template": "the frog jumps over the top",
-      "isActive": true,
-      "color": {
-        "red": 100,
-        "green": 150,
-        "blue": 200
-      }
-    }
-  ],
   "decks": [
     {
+      "id": "m7lbr71t7",
       "name": "Ring of Fire",
-      "templateIds": ["0", "1", "2"],
-      "isShuffled": true
+      "templateIds": [
+        "3m2kql1dr",
+        "7p22twfaw",
+        "1ht7oqsuu",
+        "3rtxo5axs",
+        "98djtqxvk",
+        "1dyowpwyp",
+        "3t0g9g9x2",
+        "6cmgbp9k0",
+        "ia123p86u",
+        "6j697bvkh",
+        "52wybcfyh"
+      ],
+      "isShuffled": false
+    }
+  ],
+  "templates": [
+    {
+      "id": "3m2kql1dr",
+      "template": "Wasserfall",
+      "isActive": true,
+      "color": { "red": 33, "green": 150, "blue": 243, "alpha": 255 }
+    },
+    {
+      "id": "7p22twfaw",
+      "template": "Question Master",
+      "isActive": true,
+      "color": { "red": 156, "green": 39, "blue": 176, "alpha": 255 }
+    },
+    {
+      "id": "1ht7oqsuu",
+      "template": "Thumb Master",
+      "isActive": true,
+      "color": { "red": 255, "green": 152, "blue": 0, "alpha": 255 }
+    },
+    {
+      "id": "3rtxo5axs",
+      "template": "The frog - jumps over - the top",
+      "isActive": true,
+      "color": { "red": 76, "green": 175, "blue": 80, "alpha": 255 }
+    },
+    {
+      "id": "98djtqxvk",
+      "template": "Reim",
+      "isActive": true,
+      "color": { "red": 121, "green": 85, "blue": 72, "alpha": 255 }
+    },
+    {
+      "id": "1dyowpwyp",
+      "template": "Kategorie",
+      "isActive": true,
+      "color": { "red": 96, "green": 125, "blue": 139, "alpha": 255 }
+    },
+    {
+      "id": "3t0g9g9x2",
+      "template": "Regel",
+      "isActive": true,
+      "color": { "red": 233, "green": 30, "blue": 99, "alpha": 255 }
+    },
+    {
+      "id": "6cmgbp9k0",
+      "template": "21 Game",
+      "isActive": true,
+      "color": { "red": 158, "green": 158, "blue": 158, "alpha": 255 }
+    },
+    {
+      "id": "ia123p86u",
+      "template": "6 for the chicks (Frauen trinken)",
+      "isActive": true,
+      "color": { "red": 255, "green": 235, "blue": 59, "alpha": 255 }
+    },
+    {
+      "id": "6j697bvkh",
+      "template": "5 for the guys (M�nner trinken)",
+      "isActive": true,
+      "color": { "red": 63, "green": 81, "blue": 181, "alpha": 255 }
+    },
+    {
+      "id": "52wybcfyh",
+      "template": "Drinking Buddy",
+      "isActive": true,
+      "color": { "red": 0, "green": 0, "blue": 0, "alpha": 255 }
     }
   ]
 }
