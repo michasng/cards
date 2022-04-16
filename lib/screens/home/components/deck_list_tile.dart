@@ -6,10 +6,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DeckListTile extends StatelessWidget {
   final Deck deck;
+  final Widget? trailing;
 
   const DeckListTile({
     Key? key,
     required this.deck,
+    this.trailing,
   }) : super(key: key);
 
   @override
@@ -21,6 +23,7 @@ class DeckListTile extends StatelessWidget {
       subtitle: Text(
         locale.templateCount(deck.templateIds.length),
       ),
+      trailing: trailing,
       onTap: () {
         AutoRouter.of(context).push(DeckRoute(deckId: deck.id!));
       },

@@ -4,6 +4,7 @@ import 'package:cards/constants.dart';
 import 'package:cards/models/deck.dart';
 import 'package:cards/screens/home/components/deck_list.dart';
 import 'package:cards/services/deck_service.dart';
+import 'package:cards/services/template_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
@@ -30,13 +31,22 @@ class _AsyncDeckListState extends State<AsyncDeckList> {
     return GetIt.I<DeckService>().findAll();
   }
 
-  void _addDeck() {
+  Future<void> _addDeck() async {
     final deck = Deck(
       name: 'new Deck',
       templateIds: [],
       isShuffled: false,
     );
-    GetIt.I<DeckService>().save(deck);
+    await GetIt.I<DeckService>().save(deck);
+    setState(() {
+      _loadFuture = _load();
+    });
+  }
+
+  Future<void> _deleteDeck(Deck deck) async {
+    await GetIt.I<DeckService>().delete(deck.id!);
+    for (final templateId in deck.templateIds)
+      await GetIt.I<TemplateService>().delete(templateId);
     setState(() {
       _loadFuture = _load();
     });
@@ -52,7 +62,13 @@ class _AsyncDeckListState extends State<AsyncDeckList> {
         Heading(locale.decks),
         AsyncBuilder<Iterable<Deck>>(
           future: _loadFuture,
-          builder: (context, decks) => DeckList(decks: decks.toList()),
+          builder: (context, decks) => DeckList(
+            decks: decks.toList(),
+            trailingBuilder: (deck) => IconButton(
+              onPressed: () async => await _deleteDeck(deck),
+              icon: Icon(Icons.delete),
+            ),
+          ),
         ),
         SizedBox(height: defaultPadding),
         ElevatedButton.icon(
