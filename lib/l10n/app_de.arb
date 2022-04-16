@@ -8,6 +8,7 @@
       "name": {}
     }
   },
+  "newDeck": "neues Deck",
   "template": "Schablone",
   "templates": "Schablonen",
   "templateCount": "{count, plural, zero{keine Schablonen}, one{1 Schablone}, other{{count} Schablonen}}",

@@ -37,6 +37,19 @@ class TemplateFormFieldListState extends State<TemplateFormFieldList> {
     return _templates;
   }
 
+  void _addTemplate() {
+    final template = Template(
+      template: '',
+      isActive: true,
+      color: _templates.isNotEmpty
+          ? _templates.last.color
+          : ColorData.fromColor(Color(0xff000000)),
+    );
+    setState(() {
+      _templates.add(template);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
@@ -93,18 +106,7 @@ class TemplateFormFieldListState extends State<TemplateFormFieldList> {
           shrinkWrap: true,
         ),
         ElevatedButton.icon(
-          onPressed: () {
-            final template = Template(
-              template: '',
-              isActive: true,
-              color: _templates.isNotEmpty
-                  ? _templates.last.color
-                  : ColorData.fromColor(Color(0xff000000)),
-            );
-            setState(() {
-              _templates.add(template);
-            });
-          },
+          onPressed: _addTemplate,
           icon: Icon(Icons.add),
           label: Text(locale.newCard),
         ),
