@@ -40,7 +40,7 @@ class TemplateFormFieldListState extends State<TemplateFormFieldList> {
   void _addTemplate() {
     final template = Template(
       template: '',
-      isActive: true,
+      numOccurrence: 4,
       color: _templates.isNotEmpty
           ? _templates.last.color
           : ColorData.fromColor(Color(0xff000000)),

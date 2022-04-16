@@ -9,13 +9,13 @@ part of 'template.dart';
 Template _$TemplateFromJson(Map<String, dynamic> json) => Template(
       id: json['id'] as String?,
       template: json['template'] as String,
-      isActive: json['isActive'] as bool,
+      numOccurrence: json['numOccurrence'] as int,
       color: ColorData.fromJson(json['color'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$TemplateToJson(Template instance) => <String, dynamic>{
       'id': instance.id,
       'template': instance.template,
-      'isActive': instance.isActive,
+      'numOccurrence': instance.numOccurrence,
       'color': instance.color.toJson(),
     };

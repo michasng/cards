@@ -43,6 +43,10 @@ class TemplateFormField extends StatelessWidget {
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
+          Text(
+            template.numOccurrence.toString(),
+            style: textStyle,
+          ),
           IconButton(
             icon: Icon(Icons.delete),
             onPressed: onRemove,

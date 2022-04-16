@@ -23,67 +23,67 @@
     {
       "id": "3m2kql1dr",
       "template": "Wasserfall",
-      "isActive": true,
+      "numOccurrence": 4,
       "color": { "red": 33, "green": 150, "blue": 243, "alpha": 255 }
     },
     {
       "id": "7p22twfaw",
       "template": "Question Master",
-      "isActive": true,
+      "numOccurrence": 4,
       "color": { "red": 156, "green": 39, "blue": 176, "alpha": 255 }
     },
     {
       "id": "1ht7oqsuu",
       "template": "Thumb Master",
-      "isActive": true,
+      "numOccurrence": 4,
       "color": { "red": 255, "green": 152, "blue": 0, "alpha": 255 }
     },
     {
       "id": "3rtxo5axs",
       "template": "The frog - jumps over - the top",
-      "isActive": true,
+      "numOccurrence": 4,
       "color": { "red": 76, "green": 175, "blue": 80, "alpha": 255 }
     },
     {
       "id": "98djtqxvk",
       "template": "Reim",
-      "isActive": true,
+      "numOccurrence": 4,
       "color": { "red": 121, "green": 85, "blue": 72, "alpha": 255 }
     },
     {
       "id": "1dyowpwyp",
       "template": "Kategorie",
-      "isActive": true,
+      "numOccurrence": 4,
       "color": { "red": 96, "green": 125, "blue": 139, "alpha": 255 }
     },
     {
       "id": "3t0g9g9x2",
       "template": "Regel",
-      "isActive": true,
+      "numOccurrence": 4,
       "color": { "red": 233, "green": 30, "blue": 99, "alpha": 255 }
     },
     {
       "id": "6cmgbp9k0",
       "template": "21 Game",
-      "isActive": true,
+      "numOccurrence": 4,
       "color": { "red": 158, "green": 158, "blue": 158, "alpha": 255 }
     },
     {
       "id": "ia123p86u",
       "template": "6 for the chicks (Frauen trinken)",
-      "isActive": true,
+      "numOccurrence": 4,
       "color": { "red": 255, "green": 235, "blue": 59, "alpha": 255 }
     },
     {
       "id": "6j697bvkh",
       "template": "5 for the guys (M�nner trinken)",
-      "isActive": true,
+      "numOccurrence": 4,
       "color": { "red": 63, "green": 81, "blue": 181, "alpha": 255 }
     },
     {
       "id": "52wybcfyh",
       "template": "Drinking Buddy",
-      "isActive": true,
+      "numOccurrence": 4,
       "color": { "red": 0, "green": 0, "blue": 0, "alpha": 255 }
     }
   ]

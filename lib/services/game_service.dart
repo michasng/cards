@@ -14,11 +14,12 @@ class GameService extends ModelService<Game> {
     required List<User> users,
     required Deck deck,
   }) async {
-    final gameCards = await Future.wait(
-      (await deck.templates).map(
-        (template) async => await _gameCardService.generate(template: template),
-      ),
-    );
+    final gameCards = await Stream.fromIterable(await deck.templates)
+        .asyncExpand(
+          (template) => _gameCardService.generate(template: template),
+        )
+        .toList();
+
     if (deck.isShuffled) gameCards.shuffle();
 
     return save(

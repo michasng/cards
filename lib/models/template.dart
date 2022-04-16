@@ -8,13 +8,13 @@ part 'template.g.dart';
 @JsonSerializable()
 class Template extends Model {
   String template;
-  bool isActive;
+  int numOccurrence;
   ColorData color;
 
   Template({
     String? id,
     required this.template,
-    required this.isActive,
+    required this.numOccurrence,
     required this.color,
   }) : super(id);
 
