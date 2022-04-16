@@ -20,7 +20,12 @@ class Screen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(defaultPadding),
-          child: child,
+          child: Column(
+            children: [
+              child,
+              SizedBox(height: 128) // extra scroll space
+            ],
+          ),
         ),
       ),
       // floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
